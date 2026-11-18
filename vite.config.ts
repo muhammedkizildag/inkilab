@@ -7,8 +7,14 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'lucide-react'],
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+          const match = id.match(/src[/\\]data[/\\]lessons[/\\](ders\d+)\.ts/);
+          if (match) {
+            return match[1];
+          }
         },
       },
     },

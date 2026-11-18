@@ -142,7 +142,9 @@ export function QuizSection({ questions, lessonId, onRecordResult }: QuizSection
     ((mode === 'practice' && answers[current.id] !== undefined) ||
       (mode === 'exam' && examSubmitted));
 
-  const limitOptions = questions.length > 30 ? [0, 10, 20, 40] : [0, 10, 20];
+  const limitOptions = [0, 10, 20, 30, 50].filter(
+    (lim) => lim === 0 || lim < questions.length
+  );
 
   return (
     <div>
